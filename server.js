@@ -6,7 +6,6 @@ import { generateReportPdf } from "./services/pdfGenerator.js";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS: domínios que podem chamar a API
 const allowedOrigins = [
   "http://localhost:5173",
   "https://inovatech-lumispect.vercel.app",
@@ -30,9 +29,6 @@ app.use(
 
 app.use(bodyParser.json());
 
-// ===============================================
-// ENDPOINT PRINCIPAL: Geração de PDF
-// ===============================================
 app.post("/generate-pdf", async (req, res) => {
   try {
     const { answers, result, questions } = req.body;
@@ -79,7 +75,6 @@ app.post("/generate-pdf", async (req, res) => {
   }
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`PDF API Server rodando em http://localhost:${PORT}`);
 });

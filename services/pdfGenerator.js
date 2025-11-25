@@ -7,24 +7,53 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Caminho da logo: lumispect-pdf-api/assets/logo-lumis.png
-const imagePath = path.join(__dirname, "..", "assets", "logo-lumis.png");
+// Logo Lumispect
+const lumisLogoPath = path.join(__dirname, "..", "assets", "logo-lumis.png");
+// Logo Fametro (marca d'água)
+const fametroLogoPath = path.join(
+  __dirname,
+  "..",
+  "assets",
+  "logo-fametro.png"
+);
 
-let BASE64_IMAGE_URL = "";
+let BASE64_LUMIS_URL = "";
+let BASE64_FAMETRO_URL = "";
 
+// Lumispect
 try {
-  if (!fs.existsSync(imagePath)) {
+  if (!fs.existsSync(lumisLogoPath)) {
     console.error(
-      `ERRO CRÍTICO: Imagem de logo não encontrada em: ${imagePath}`
+      `ERRO CRÍTICO: Imagem de logo Lumispect não encontrada em: ${lumisLogoPath}`
     );
   } else {
-    const imageBuffer = fs.readFileSync(imagePath);
-    BASE64_IMAGE_URL = `data:image/png;base64,${imageBuffer.toString(
+    const imageBuffer = fs.readFileSync(lumisLogoPath);
+    BASE64_LUMIS_URL = `data:image/png;base64,${imageBuffer.toString(
       "base64"
     )}`;
   }
 } catch (error) {
-  console.error("Erro ao ler ou converter imagem para Base64:", error.message);
+  console.error(
+    "Erro ao ler ou converter imagem Lumispect para Base64:",
+    error.message
+  );
+}
+
+// Fametro
+try {
+  if (!fs.existsSync(fametroLogoPath)) {
+    console.error(`Logo Fametro não encontrada em: ${fametroLogoPath}`);
+  } else {
+    const fametroBuffer = fs.readFileSync(fametroLogoPath);
+    BASE64_FAMETRO_URL = `data:image/png;base64,${fametroBuffer.toString(
+      "base64"
+    )}`;
+  }
+} catch (error) {
+  console.error(
+    "Erro ao ler ou converter imagem Fametro para Base64:",
+    error.message
+  );
 }
 
 async function generateReportPdf(reportData) {
@@ -81,7 +110,8 @@ async function generateReportPdf(reportData) {
     .replace("{{REMAINING_SCORE}}", remainingScore.toFixed(0))
     .replace("{{CHART_SCORE_DEG}}", chartScoreDegrees)
     .replace("{{DATE}}", new Date().toLocaleDateString("pt-BR"))
-    .replace("{{LOGO_COMPOSITE_URL}}", BASE64_IMAGE_URL);
+    .replace("{{LOGO_COMPOSITE_URL}}", BASE64_LUMIS_URL)
+    .replace("{{LOGO_FAMETRO_URL}}", BASE64_FAMETRO_URL);
 
   const executablePath = await chromium.executablePath();
 

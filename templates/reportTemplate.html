@@ -14,9 +14,6 @@
         --fundo-destaque: #f0f4fd; /* Azul suave para recomendação */
       }
 
-      /* ================================= */
-      /* ESTILOS GLOBAIS E ESTRUTURA */
-      /* ================================= */
       body {
         font-family: Arial, sans-serif;
         color: var(--texto-escuro);
@@ -33,44 +30,55 @@
         padding: 20px;
       }
 
-      /* ================================= */
-      /* HEADER: Logo e Título (AJUSTADO) */
-      /* ================================= */
+      /* Marca d'água Fametro */
+      .watermark-logo {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        opacity: 0.12;
+        z-index: -1;
+      }
+
+      .watermark-logo img {
+        max-width: 120px;
+        height: auto;
+      }
+
+      /* HEADER: Logo e Título */
       .header {
         text-align: center;
         border-bottom: 3px solid var(--cor-principal);
-        padding-bottom: 10px; /* Espaçamento da linha */
+        padding-bottom: 10px;
         margin-bottom: 20px;
       }
 
       .header-content {
-        display: flex; /* Habilita layout lado a lado */
-        align-items: center; /* Centraliza verticalmente */
-        justify-content: center; /* Centraliza horizontalmente */
-        gap: 10px; /* Espaço entre a logo e o título */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
       }
 
       .header img {
-        /* Ajuste de tamanho para caber ao lado do título */
         max-width: 200px;
         height: auto;
         object-fit: contain;
       }
+
       .header h1 {
-        /* Ajuste de tamanho para caber ao lado do título */
         font-size: 5em;
       }
 
       .title {
         color: var(--cor-principal);
         font-size: 28px;
-        margin: 0; /* Remove margem superior */
+        margin: 0;
         font-weight: bold;
         line-height: 1.2;
       }
 
       .subtitle {
-        font-size: 14px; /* Levemente reduzido para sub-título */
+        font-size: 14px;
         color: var(--texto-claro);
         margin-top: 10px;
         text-align: center;
@@ -100,7 +108,7 @@
 
       .progress-bar-container {
         width: 100%;
-        max-width: 500px; /* Limita o tamanho da barra */
+        max-width: 500px;
         background-color: var(--cor-secundaria-grafico);
         border-radius: 5px;
         overflow: hidden;
@@ -111,13 +119,12 @@
       .progress-bar-fill {
         height: 100%;
         background-color: var(--cor-principal);
-        /* A largura será definida pelo JavaScript inline */
         transition: width 0.6s ease-in-out;
         display: flex;
         align-items: center;
         justify-content: flex-end;
         padding-right: 5px;
-        color: white; /* Cor do texto dentro da barra */
+        color: white;
         font-weight: bold;
         font-size: 12px;
       }
@@ -131,8 +138,6 @@
         font-size: 1.4em;
       }
 
-      /* Estilos de conteúdo e rodapé (mantidos) */
-
       .section-title {
         font-size: 20px;
         color: var(--cor-principal);
@@ -140,16 +145,19 @@
         padding-bottom: 5px;
         margin-bottom: 15px;
       }
+
       .recommendation {
         background-color: var(--fundo-destaque);
         padding: 15px;
         border-left: 5px solid var(--cor-principal);
         font-style: italic;
       }
+
       .recommendation .section-title {
         color: var(--cor-principal) !important;
         border-bottom: none;
       }
+
       .footer {
         text-align: center;
         font-size: 12px;
@@ -158,12 +166,11 @@
         border-top: 1px solid var(--borda-clara);
         padding-top: 10px;
       }
+
       .answers-list p {
         font-size: 1.17em;
       }
-      /* ================================= */
-      /* MEDIA PRINT */
-      /* ================================= */
+
       @page {
         size: A4;
         margin: 0.5in;
@@ -171,6 +178,11 @@
     </style>
   </head>
   <body>
+    <!-- Marca d'água Fametro -->
+    <div class="watermark-logo">
+      <img src="{{LOGO_FAMETRO_URL}}" alt="Fametro" />
+    </div>
+
     <div class="container">
       <div class="header">
         <div class="header-content">
@@ -198,6 +210,7 @@
           <strong>Categoria: {{CATEGORY}}</strong>
         </div>
       </div>
+
       <div class="section">
         <h2 class="section-title">Análise do Teste</h2>
         <div class="answers-list">
