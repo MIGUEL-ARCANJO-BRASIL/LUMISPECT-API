@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3001;
 
 // CORS: permite localhost e seu domínio da Vercel
 const allowedOrigins = [
-  "http://localhost:5173",
   "https://inovatech-lumispect.vercel.app",
+  "https://inovatech-lumispect-em0lig9f9-miguel-arcanjo-brasils-projects.vercel.app",
 ];
 
 app.use(
