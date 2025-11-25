@@ -1,4 +1,5 @@
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium-min";
+import puppeteer from "puppeteer-core";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -82,9 +83,13 @@ async function generateReportPdf(reportData) {
     .replace("{{DATE}}", new Date().toLocaleDateString("pt-BR"))
     .replace("{{LOGO_COMPOSITE_URL}}", BASE64_IMAGE_URL);
 
+  const executablePath = await chromium.executablePath();
+
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    headless: true,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath,
+    headless: chromium.headless,
   });
 
   const page = await browser.newPage();

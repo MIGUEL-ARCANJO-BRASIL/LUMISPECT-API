@@ -6,15 +6,25 @@ import { generateReportPdf } from "./services/pdfGenerator.js";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS: permite localhost e seu domínio da Vercel
+// CORS: domínios que podem chamar a API
 const allowedOrigins = [
+  "http://localhost:5173",
   "https://inovatech-lumispect.vercel.app",
   "https://inovatech-lumispect-em0lig9f9-miguel-arcanjo-brasils-projects.vercel.app",
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(
+        new Error(`Origin ${origin} não permitido pelo CORS da API`),
+        false
+      );
+    },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
