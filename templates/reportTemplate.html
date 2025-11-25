@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório Lumispect Detalhado</title>
+    <style>
+      /* Variáveis de Cores */
+      :root {
+        --cor-principal: #4b8cf5; /* Azul principal (Score) */
+        --cor-secundaria-grafico: #ddd; /* Cinza (Fundo da barra) */
+        --texto-escuro: #333;
+        --texto-claro: #555;
+        --borda-clara: #eee;
+        --fundo-destaque: #f0f4fd; /* Azul suave para recomendação */
+      }
+
+      /* ================================= */
+      /* ESTILOS GLOBAIS E ESTRUTURA */
+      /* ================================= */
+      body {
+        font-family: Arial, sans-serif;
+        color: var(--texto-escuro);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        font-size: 10pt;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* ================================= */
+      /* HEADER: Logo e Título (AJUSTADO) */
+      /* ================================= */
+      .header {
+        text-align: center;
+        border-bottom: 3px solid var(--cor-principal);
+        padding-bottom: 10px; /* Espaçamento da linha */
+        margin-bottom: 20px;
+      }
+
+      .header-content {
+        display: flex; /* Habilita layout lado a lado */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        gap: 10px; /* Espaço entre a logo e o título */
+      }
+
+      .header img {
+        /* Ajuste de tamanho para caber ao lado do título */
+        max-width: 200px;
+        height: auto;
+        object-fit: contain;
+      }
+      .header h1 {
+        /* Ajuste de tamanho para caber ao lado do título */
+        font-size: 5em;
+      }
+
+      .title {
+        color: var(--cor-principal);
+        font-size: 28px;
+        margin: 0; /* Remove margem superior */
+        font-weight: bold;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        font-size: 14px; /* Levemente reduzido para sub-título */
+        color: var(--texto-claro);
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .chart-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        border: 1px solid var(--borda-clara);
+        padding: 20px 40px;
+        border-radius: 8px;
+        gap: 10px;
+      }
+
+      .score-display {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .score-display strong {
+        font-size: 40px;
+        color: var(--cor-principal);
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        max-width: 500px; /* Limita o tamanho da barra */
+        background-color: var(--cor-secundaria-grafico);
+        border-radius: 5px;
+        overflow: hidden;
+        height: 25px;
+        margin-bottom: 15px;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background-color: var(--cor-principal);
+        /* A largura será definida pelo JavaScript inline */
+        transition: width 0.6s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 5px;
+        color: white; /* Cor do texto dentro da barra */
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .category-display {
+        text-align: center;
+      }
+
+      .category-display strong {
+        color: var(--cor-principal);
+        font-size: 1.4em;
+      }
+
+      /* Estilos de conteúdo e rodapé (mantidos) */
+
+      .section-title {
+        font-size: 20px;
+        color: var(--cor-principal);
+        border-bottom: 2px solid var(--borda-clara);
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+      }
+      .recommendation {
+        background-color: var(--fundo-destaque);
+        padding: 15px;
+        border-left: 5px solid var(--cor-principal);
+        font-style: italic;
+      }
+      .recommendation .section-title {
+        color: var(--cor-principal) !important;
+        border-bottom: none;
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        margin-top: 40px;
+        border-top: 1px solid var(--borda-clara);
+        padding-top: 10px;
+      }
+      .answers-list p {
+        font-size: 1.17em;
+      }
+      /* ================================= */
+      /* MEDIA PRINT */
+      /* ================================= */
+      @page {
+        size: A4;
+        margin: 0.5in;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-content">
+          <img src="{{LOGO_COMPOSITE_URL}}" alt="Lumispect Logo" />
+          <h1 class="title">Lumispect</h1>
+        </div>
+        <p class="subtitle">
+          Resultado do Auxílio Autoavaliativo Cognitivo | Data: {{DATE}}
+        </p>
+      </div>
+
+      <div class="chart-section">
+        <div class="score-display">
+          <strong>{{SCORE}}%</strong>
+          <p style="font-size: 14px; color: var(--texto-claro); margin: 0">
+            Pontuação Obtida
+          </p>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: {{SCORE}}%;"></div>
+        </div>
+
+        <div class="category-display">
+          <strong>Categoria: {{CATEGORY}}</strong>
+        </div>
+      </div>
+      <div class="section">
+        <h2 class="section-title">Análise do Teste</h2>
+        <div class="answers-list">
+          <p>{{DESCRIPTION}}</p>
+        </div>
+      </div>
+
+      <div class="section recommendation">
+        <h2 class="section-title" style="border-bottom: none">Recomendação</h2>
+        <p>{{RECOMMENDATION}}</p>
+        <p style="font-size: 14px; margin-top: 10px">
+          Pontuação total: <strong>{{SCORE}}</strong> de 100.
+        </p>
+      </div>
+
+      <div class="footer">
+        Este relatório é um recurso de triagem e não substitui uma avaliação ou
+        diagnóstico clínico por um profissional qualificado.
+      </div>
+    </div>
+  </body>
+</html>
